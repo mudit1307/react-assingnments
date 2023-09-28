@@ -1,12 +1,30 @@
 import React, { useState } from 'react'
 
 function ToDo() {
+
     const [value,setValue] =useState("");
     const [arr,setArr] = useState([]);
-    function foo()
+
+    function foo(e)
     {
+        e.preventDefault();
         console.log(value);
         setArr([...arr,value]);
+        setValue("");
+    }
+
+    function deleteElement(indx)
+    {
+        console.log("delete");
+        let newArr=[];
+        for(let i=0;i<arr.length;i++)
+        {
+            if(i != indx)
+            {
+                newArr.push(arr[i]);
+            }
+        }
+        setArr([...newArr]);
     }
 
   return (
@@ -20,10 +38,17 @@ function ToDo() {
 <div>
     <ul>
         {
-            // arr.map((temp,indx)=>
-            // {
-            //     <li key={indx}>{temp}</li>
-            // })
+            arr.map((temp,indx)=>
+            {
+                return (<div key={indx} style={{display: " flex",margin:"20px 0px"}}>
+                    <li style={{margin:"0px 5px"}}>{temp}</li>
+
+                    {/* to call function with parametersin react */}
+                    <button onClick={() =>  deleteElement(indx)}>Delete</button>
+
+                    <br/>
+                </div> );
+            })
         }
     </ul>
 </div>
